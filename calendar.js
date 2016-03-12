@@ -83,29 +83,36 @@ function matchWeekNumber(wname) {
     return {Sunday: 1, Monday: 2, Tuesday: 3, Wednesday: 4, Thursday: 5, Friday: 6, Saturday: 7 }[wname];
 }
 
+/*
+The below is zeller's Algorithm.
+http://calendars.wikia.com/wiki/Zeller's_congruence
+To calculate the day of the week for any calendar date
+
+*/
+function zeller(year, month , day) {
+    if ((month < 1) || (month > 12)) {
+        console.log("Impossible month");
+        return null;
+    }
+    if ((day < 1 ) || (day > 31)) {
+        console.log("Imposible day");
+        return null;
+    }
+    var ttable = [0,3,2,5,0,3,5,1,4,6,2,4];
+    var ntable = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    if (month < 3){
+        year = year - 1;
+    }
+    var nw = (year + Math.floor(year/4) - Math.floor(year/100) + Math.floor(year/400) + ttable[month - 1] + day) % 7;
+    return ntable[nw];
+    
+}
+
 function render(that) {
     //that.layout = [[], [], [], [], [], []];
     var ccdate = that.currentDate;
     var ccday = that.currentDay;
-    while(ccdate >= 0) {
-        if (ccdate - 7 >= 1) {
-            ccdate = ccdate - 7;
-        }
-        else {
-            break;
-        }
-    }
-    //var cctemp = Math.abs(ccdate - 1 );
-    var dname = Calendar.weekName(ccday);
-    if (( dname === "Sunday") && (ccdate !== 0)) {
-        ccdate = ccdate - 1;
-        dname = "Saturday";      
-    }
-  
-    console.log("current number =" + ccdate);
-    var cctemp = matchWeekNumber(dname)  - ccdate;
-    var dname = Calendar.weekName(cctemp);
-    return [cctemp, dname];
+
     
 }
 
@@ -126,4 +133,6 @@ Calendar.monthDays = function(month, year) {
 Calendar.prototype.render = function() {
     return render(this);
     
+    
 }
+
