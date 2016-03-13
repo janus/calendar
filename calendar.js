@@ -1,4 +1,13 @@
 'use strict';
+/*
+Calendar Object
+var cobject = new Calendar();
+Or
+var cobject = new Calendar(year, month, day);
+month is {Number} eg February is 2
+year is {Number}
+day is {Number}
+*/
 function Calendar(year, month, date){
     
     if(arguments.length === 0) {
@@ -18,6 +27,9 @@ function Calendar(year, month, date){
           
 }
 
+/*
+It increases month by 1
+*/
 Calendar.prototype.nextMonth = function() {
     var cMonth = this.currentMonth;
     if(cMonth >= 0 && cMonth < 11){
@@ -39,7 +51,9 @@ Calendar.prototype.nextMonth = function() {
         
 };
 
-
+/*
+It decreases month by 1
+*/
 Calendar.prototype.prevMonth = function() {
     var cMonth = this.currentMonth;
     console.log("This month is not possible");
@@ -61,6 +75,9 @@ Calendar.prototype.prevMonth = function() {
         
 };
 
+/*
+It increases year by 1
+*/
 Calendar.prototype.nextYear = function(){
     console.log("This Year is not possible");
     var cYear = this.currentYear;
@@ -69,15 +86,22 @@ Calendar.prototype.nextYear = function(){
     
 };
 
+/*
+It decreases year by 1
+*/
 Calendar.prototype.prevYear = function()  {
     var cYear = this.currentYear;
     this.currentYear = cYear - 1;
     return this;
 };
 
+/*
+Private funtion for finding leap year
+*/
 function leapYear(year) {
     return ( ((year % 4 === 0) && (year % 100 !== 0)) || (year % 400 === 0)) ? 1 : 0;
 }
+
 
 function matchWeekNumber(wname) {
     return {Sunday: 0, Monday: 1, Tuesday: 2, Wednesday: 3, Thursday: 4, Friday: 5, Saturday: 6 }[wname];
@@ -108,10 +132,13 @@ function zeller(year, month , day) {
     
 }
 
+/*
+Private function for render month's days
+Returns an Array of {Numbers} and {Null}
+*/
 function render(that) {
     var layout = [];
     var firstDateOfMonth = zeller( that.currentYear, that.currentMonth + 1, 1);
-    console.log("firstDateOfMonth = " + firstDateOfMonth);
     var numOfVoids = matchWeekNumber(firstDateOfMonth);
     while ( numOfVoids > 0) {
         layout.push(null);
