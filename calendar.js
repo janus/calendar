@@ -80,7 +80,7 @@ function leapYear(year) {
 }
 
 function matchWeekNumber(wname) {
-    return {Sunday: 1, Monday: 2, Tuesday: 3, Wednesday: 4, Thursday: 5, Friday: 6, Saturday: 7 }[wname];
+    return {Sunday: 0, Monday: 1, Tuesday: 2, Wednesday: 3, Thursday: 4, Friday: 5, Saturday: 6 }[wname];
 }
 
 /*
@@ -109,11 +109,19 @@ function zeller(year, month , day) {
 }
 
 function render(that) {
-    //that.layout = [[], [], [], [], [], []];
-    var ccdate = that.currentDate;
-    var ccday = that.currentDay;
-
-    
+    var layout = [];
+    var firstDateOfMonth = zeller( that.currentYear, that.currentMonth + 1, 1);
+    console.log("firstDateOfMonth = " + firstDateOfMonth);
+    var numOfVoids = matchWeekNumber(firstDateOfMonth);
+    while ( numOfVoids > 0) {
+        layout.push(null);
+        numOfVoids = numOfVoids - 1;
+    }
+    var numOfDays = Calendar.monthDays(that.currentMonth ,that.currentYear);
+    for(var i = 1 ;  i <= numOfDays ; i++) {
+        layout.push(i);
+    }
+    return layout;
 }
 
 Calendar.weekName = function (week) {
@@ -132,6 +140,7 @@ Calendar.monthDays = function(month, year) {
 
 Calendar.prototype.render = function() {
     return render(this);
+    //To Do print the result here
     
     
 }
