@@ -36,7 +36,7 @@ Return array of Number and Nulls
 
 cobject.render()
 
-Helper Methods:
+# Helper Methods:
 
 Return the name of the day eg Monday
 
