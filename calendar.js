@@ -8,11 +8,11 @@ month is {Number} eg February is 2
 year is {Number}
 day is {Number}
 */
-function Calendar(year, month, date){
+function Calendar(year, month, day){
     
     var cobject;
     if(arguments.length === 3){
-        cobject = new Date(year, month, date);
+        cobject = new Date(year, month, day);
     }
 
     cobject  = cobject || new Date();
@@ -185,7 +185,7 @@ function test(computed, given) {
     }
     for(var i = 0; i < clen; i++) {
         if (computed[i] !== given[i]) {
-            throw new Error("Test failed : Elements not same at " + i)
+            throw new Error("Test failed : Elements not same at " + i + " and values are: computed "  + computed[i] + " and given "+ given[i] );
         }
             
     }
