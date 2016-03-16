@@ -3,7 +3,7 @@
    
 var GregorianCalendar = (function () {
 /**
-* Represents a gregorian calendar
+* Represents the gregorian calendar
 * @constructor
 * @param {number} year - The year of the calendar
 * @param {number} month - The month of the calendar
