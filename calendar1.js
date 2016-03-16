@@ -83,9 +83,8 @@ GregorianCalendar.prototype.prevYear = function () {
 * @return {boolean} 
 */
 function _leapYear (year) {
-    return ( ( (year % 4 === 0) && (year % 100 !== 0) ) || (year % 400 === 0) ) ? true : false;
+    return ( ( (year % 4 === 0) && (year % 100 !== 0) ) || (year % 400 === 0) ) ;
 }
-
 
 /**
 * Private function for finding Week Number
