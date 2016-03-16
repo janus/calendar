@@ -104,7 +104,7 @@ function _matchWeekNumber(wname) {
 * @param {number} day - The day to map to week day
 * @return {string} - Day of the week
 */
-function zeller(year, month, day) {
+function _zeller(year, month, day) {
     var ttable, ntable;
     if ( (month < 1) || (month > 12) ) {
         throw new Error("Bad month" + month);
@@ -159,7 +159,7 @@ GregorianCalendar.prototype.render = function() {
     
     var i;
     var layout = [];
-    var firstDateOfMonth = zeller( this.currentYear, this.currentMonth + 1, 1);
+    var firstDateOfMonth = _zeller( this.currentYear, this.currentMonth + 1, 1);
     var numOfVoids = _matchWeekNumber(firstDateOfMonth);
     while ( numOfVoids > 0) {
         layout.push(null);
