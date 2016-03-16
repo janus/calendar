@@ -33,13 +33,14 @@ GregorianCalendar.prototype.nextMonth = function () {
     var cMonth = this.currentMonth;
     if (cMonth >= 0 && cMonth < 11) {
         this.currentMonth++;
-        return this;
+        
     }
     if (cMonth === 11) {
         this.currentYear++;
         this.currentMonth = 0;
-        return this;
+        
     }
+    return this;
         
 };
 
@@ -51,13 +52,12 @@ GregorianCalendar.prototype.prevMonth = function () {
     var cMonth = this.currentMonth;
     if (cMonth > 0 && cMonth <= 11) {
         this.currentMonth--;
-        return this;
     }
     if (cMonth === 0) {
         this.currentYear--;
         this.currentMonth = 11;
-        return this;
     }
+    return this;
         
 };
 
