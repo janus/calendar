@@ -1,14 +1,14 @@
-//'use strict';
+'use strict';
+
+   
+var GregorianCalendar = (function () {
 /**
 * Represents a gregorian calendar
 * @constructor
 * @param {number} year - The year of the calendar
 * @param {number} month - The month of the calendar
 * @param {number} day - The day of the month
-*/
-   
- var GregorianCalendar = (function () {
-    
+*/   
 function GregorianCalendar (year, month, day) {
     var cobject;
     if (arguments.length === 3) {
