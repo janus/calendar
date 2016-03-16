@@ -14,6 +14,9 @@ function GregorianCalendar (year, month, day) {
     if (arguments.length === 3) {
         cobject = new Date(year, month, day);
     }
+    if ( (arguments.length !== 3) || (arguments.length !== 0) ) {
+        throw new Error("Wrong arguments: arguments should be either zero or 3");
+    }
 
     cobject  = cobject || new Date();
     this.currentMonth = cobject.getMonth();
