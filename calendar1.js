@@ -1,41 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <title>JSDoc: Source: calendar.js</title>
-
-    <script src="scripts/prettify/prettify.js"> </script>
-    <script src="scripts/prettify/lang-css.js"> </script>
-    <!--[if lt IE 9]>
-      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
-    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
-</head>
-
-<body>
-
-<div id="main">
-
-    <h1 class="page-title">Source: calendar.js</h1>
-
-    
-
-
-
-    
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>'use strict';
+//'use strict';
 /**
-* Represents a calendar
+* Represents a gregorian calendar
 * @constructor
 * @param {number} year - The year of the calendar
 * @param {number} month - The month of the calendar
 * @param {number} day - The day of the month
 */
-function Calendar(year, month, day) {
+   
+ var GregorianCalendar = (function () {
     
+function GregorianCalendar (year, month, day) {
     var cobject;
     if (arguments.length === 3) {
         cobject = new Date(year, month, day);
@@ -45,17 +19,16 @@ function Calendar(year, month, day) {
     this.currentMonth = cobject.getMonth();
     this.currentDay = cobject.getDay();
     this.currentYear = cobject.getFullYear();
-    this.currentDate = cobject.getDate();
-          
+    this.currentDate = cobject.getDate();               
 }
 
 /**
 * A method that increases the month by 1
 * @return {object} calendar
 */
-Calendar.prototype.nextMonth = function () {
+GregorianCalendar.prototype.nextMonth = function () {
     var cMonth = this.currentMonth;
-    if (cMonth >= 0 &amp;&amp; cMonth &lt; 11) {
+    if (cMonth >= 0 && cMonth < 11) {
         this.currentMonth++;
         return this;
     }
@@ -71,9 +44,9 @@ Calendar.prototype.nextMonth = function () {
 * A method that decreases month by 1
 * @return {object} calendar
 */
-Calendar.prototype.prevMonth = function () {
+GregorianCalendar.prototype.prevMonth = function () {
     var cMonth = this.currentMonth;
-    if (cMonth > 0 &amp;&amp; cMonth &lt;= 11) {
+    if (cMonth > 0 && cMonth <= 11) {
         this.currentMonth--;
         return this;
     }
@@ -89,7 +62,7 @@ Calendar.prototype.prevMonth = function () {
 * A method that increases year by 1
 * @return {object} calendar
 */
-Calendar.prototype.nextYear = function () {
+GregorianCalendar.prototype.nextYear = function () {
     this.currentYear++;
     return this;
     
@@ -99,7 +72,7 @@ Calendar.prototype.nextYear = function () {
 * A method that decreases year by 1
 * @return {object} calendar
 */
-Calendar.prototype.prevYear = function () {
+GregorianCalendar.prototype.prevYear = function () {
     this.currentYear--;
     return this;
 };
@@ -109,8 +82,8 @@ Calendar.prototype.prevYear = function () {
 * @param {number} year 
 * @return {boolean} 
 */
-function leapYear (year) {
-    return ( ( (year % 4 === 0) &amp;&amp; (year % 100 !== 0) ) || (year % 400 === 0) ) ? true : false;
+function _leapYear (year) {
+    return ( ( (year % 4 === 0) && (year % 100 !== 0) ) || (year % 400 === 0) ) ? true : false;
 }
 
 
@@ -119,7 +92,7 @@ function leapYear (year) {
 * @param {number} year 
 * @return {number} - Returns number mapped to day of week
 */
-function matchWeekNumber(wname) {
+function _matchWeekNumber(wname) {
     return {Sunday: 0, Monday: 1, Tuesday: 2, Wednesday: 3, Thursday: 4, Friday: 5, Saturday: 6 }[wname];
 }
 
@@ -133,15 +106,15 @@ function matchWeekNumber(wname) {
 */
 function zeller(year, month, day) {
     var ttable, ntable;
-    if ( (month &lt; 1) || (month > 12) ) {
+    if ( (month < 1) || (month > 12) ) {
         throw new Error("Bad month" + month);
     }
-    if ( (day &lt; 1 ) || (day > 31) ) {
+    if ( (day < 1 ) || (day > 31) ) {
         throw new Error("Bad day " + day);
     }
     ttable = [0, 3, 2, 5, 0, 3, 5, 1, 4, 6, 2, 4];
     ntable = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-    if (month &lt; 3) {
+    if (month < 3) {
         year--;
     }
     var nw = (year + Math.floor(year / 4) - Math.floor(year / 100) + Math.floor(year /400) + ttable[month - 1] + day) % 7;
@@ -154,7 +127,7 @@ function zeller(year, month, day) {
 * @return {string}
 */
 
-Calendar.prototype.dayName = function () {
+GregorianCalendar.prototype.dayName = function () {
     return ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"][this.currentDay];
 };
 
@@ -163,7 +136,7 @@ Calendar.prototype.dayName = function () {
 * This is zero-based, so 0 -> January
 * @return {string}
 */
-Calendar.prototype.monthName = function () {
+GregorianCalendar.prototype.monthName = function () {
     return ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"][this.currentMonth];
 };
 
@@ -173,8 +146,8 @@ Calendar.prototype.monthName = function () {
 * @return {number}
 */
 
-Calendar.prototype.monthDays = function(month, year) {
-    return [31, leapYear(this.currentYear)? 29 : 28, 31, 30, 31, 30 , 31, 31, 30, 31, 30, 31 ][this.currentMonth];
+GregorianCalendar.prototype.monthDays = function(month, year) {
+    return [31, _leapYear(this.currentYear)? 29 : 28, 31, 30, 31, 30 , 31, 31, 30, 31, 30, 31 ][this.currentMonth];
 };
 
 /**
@@ -182,24 +155,27 @@ Calendar.prototype.monthDays = function(month, year) {
 * @return {array} layout
 */
 
-Calendar.prototype.render = function() {
+GregorianCalendar.prototype.render = function() {
     
     var i;
     var layout = [];
     var firstDateOfMonth = zeller( this.currentYear, this.currentMonth + 1, 1);
-    var numOfVoids = matchWeekNumber(firstDateOfMonth);
+    var numOfVoids = _matchWeekNumber(firstDateOfMonth);
     while ( numOfVoids > 0) {
         layout.push(null);
         numOfVoids--;
     }
     var numOfDays = this.monthDays(this.currentMonth ,this.currentYear);
-    for (i = 1; i &lt;= numOfDays; i++) {
+    for (i = 1; i <= numOfDays; i++) {
         layout.push(i);
     }
     return layout;
     //To Do print the result here   
 };
+     
+return GregorianCalendar;
 
+ })();
 /*
 * Simple unit test
 *
@@ -213,7 +189,7 @@ function test(computed, given) {
     if (clen !== glen) {
         throw new Error("Test failed: length not equal " + clen + " " + glen);
     }
-    for ( i = 0; i &lt; clen; i++) {
+    for ( i = 0; i < clen; i++) {
         if (computed[i] !== given[i]) {
             throw new Error("Test failed : Elements not same at " + i + " and values are: computed "  + computed[i] + " and given "+ given[i] );
         }
@@ -231,34 +207,11 @@ var testMarch2017 = [null, null, null, 1,  2,  3, 4, 5,  6, 7, 8,  9, 10, 11 , 1
 var testMarch2015 = [1,  2,  3, 4, 5,  6, 7, 8,  9, 10, 11 , 12, 13, 14, 15, 16, 17, 18, 19,20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31];
 
 
-test(new Calendar(2017, 2, 14).nextMonth().render(), testApril2017);
+test(new GregorianCalendar(2017, 2, 14).nextMonth().render(), testApril2017);
      
-test(new Calendar().render(), testMarch2016);
+test(new GregorianCalendar().render(), testMarch2016);
 
-test(new Calendar().nextYear().render(), testMarch2017);
+test(new GregorianCalendar().nextYear().render(), testMarch2017);
 
-test(new Calendar().prevYear().render(), testMarch2015);
+test(new GregorianCalendar().prevYear().render(), testMarch2015);
 
-</code></pre>
-        </article>
-    </section>
-
-
-
-
-</div>
-
-<nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Calendar.html">Calendar</a></li></ul><h3>Global</h3><ul><li><a href="global.html#leapYear">leapYear</a></li><li><a href="global.html#matchWeekNumber">matchWeekNumber</a></li><li><a href="global.html#zeller">zeller</a></li></ul>
-</nav>
-
-<br class="clear">
-
-<footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Mon Mar 14 2016 22:12:00 GMT+0100 (WAT)
-</footer>
-
-<script> prettyPrint(); </script>
-<script src="scripts/linenumber.js"> </script>
-</body>
-</html>
