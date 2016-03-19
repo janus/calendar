@@ -1,0 +1,6 @@
+{
+  "name": "Calendar",
+  "tagline": "Learning JavaScript",
+  "body": "# calendar\r\nSimple to use:\r\n\r\nCalendar Object\r\n\r\nvar cobject = new Calendar();\r\n\r\nOr\r\n\r\nvar cobject = new Calendar(year, month, day);\r\n\r\nmonth is {Number} eg February is 2\r\n\r\nyear is {Number}\r\n\r\nday is {Number}\r\n\r\n\r\nIncreases month by 1 {Method}\r\n\r\ncobject.nextMonth();\r\n\r\nIncreases yesr by 1 {Method}\r\n\r\ncobject.nextYear();\r\n\r\nDecreases month by 1 {Method}\r\n\r\ncobject.prevMonth();\r\n\r\nDecreases year by 1 {Method}\r\n\r\ncobject.prevYear();\r\n\r\nReturn array of Number and Nulls\r\n\r\ncobject.render()\r\n\r\n# Helper Methods:\r\n\r\nReturn the name of the day eg Monday\r\n\r\ncobject.dayName();\r\n\r\nReturn the name of the month eg January\r\n\r\ncobject.monthName();\r\n",
+  "note": "Don't delete this file! It's used internally to help with page regeneration."
+}
